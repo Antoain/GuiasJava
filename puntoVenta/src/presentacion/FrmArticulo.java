@@ -6,24 +6,25 @@ package presentacion;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
-import negocio.CategoriaControl;
+import negocio.ArticuloControl;
+
 
 /**
  *
  * @author offic
  */
-public class FrmCategoria extends javax.swing.JInternalFrame {
+public class FrmArticulo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FrmCategoria test
      */
-    private final CategoriaControl CONTROL;
+    private final ArticuloControl CONTROL;
     private String accion;
     private String nombreAnt;
     
-    public FrmCategoria() {
+    public FrmArticulo() {
         initComponents();
-        this.CONTROL = new CategoriaControl();
+        this.CONTROL = new ArticuloControl();
         this.listar("");
         tabGeneral.removeAll();
         tabGeneral.addTab("Listado", jPanel2);
@@ -39,10 +40,19 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     }
     
     private void listar (String texto){
-        tablaListado.setModel(this.CONTROL.listar(texto));
+        tablaListado.setModel(this.CONTROL.listar(texto,10,1));
         TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
         tablaListado.setRowSorter(orden);
+        ocultarColumna();
         lblCantidadRegistro.setText("Mostrar"+ this.CONTROL.totalMostrados() + "de un total de " + this.CONTROL.total()); 
+    
+    }
+    
+    private void ocultarColumna(){
+        tablaListado.getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaListado.getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaListado.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaListado.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
     
     }
     
@@ -231,9 +241,9 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,9 +253,7 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
                         .addComponent(btnNuevo)
                         .addGap(64, 64, 64)
                         .addComponent(btnEditar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(235, 235, 235)
